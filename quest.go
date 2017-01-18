@@ -73,6 +73,7 @@ You will be notified by your guards when a Cow squad is near a burrow.`)
 	wait()
 	fmt.Println(
 		`That's how the game works.
+If you forget, just type 'info' again at any time.
 Press enter to start the game.`)
 	time.Sleep(PAUSE)
 }
