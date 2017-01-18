@@ -28,8 +28,9 @@ const (
 )
 
 func init() {
-	fmt.Println("Welcome to Gopher Quest!")
-	fmt.Println("If you don't know how to play, type 'info' now; otherwise, press enter.")
+	fmt.Println(
+		`Welcome to Gopher Quest!
+If you don't know how to play, type 'info' now; otherwise, press enter.`)
 	input("")
 }
 
@@ -50,24 +51,29 @@ func input(prompt string) (response string) {
 }
 
 func info() {
-	fmt.Println("You control a nation of Gophers.")
-	fmt.Println("Press enter to continue.")
+	fmt.Println(
+		`You control a nation of Gophers.
+Press enter to continue.`)
 	wait()
-	fmt.Println("Recently, the evil Cows declared war on your nation.")
-	fmt.Println("Not only did they capture all of your citizens, but they are also attacking your burrows!")
-	fmt.Println("You need to rescue your Gophers before all of your burrows are destroyed!")
+	fmt.Println(
+		`Recently, the evil Cows declared war on your nation.
+Not only did they capture all of your citizens, but they are also attacking your burrows!
+You need to rescue your Gophers before all of your burrows are destroyed!`)
 	wait()
-	fmt.Println("Each turn, you choose a place to send a rescue party.")
-	fmt.Println("If you find nothing, it will be marked on your map as empty.")
-	fmt.Println("If you find an entrance to a Cow base, all Gophers being held captive there will be rescued.")
-	fmt.Println("If you find a part of a Cow base that they can't enter, it will be marked on your map as part of a base.")
+	fmt.Println(
+		`Each turn, you choose a place to send a rescue party.
+If you find nothing, it will be marked on your map as empty.
+If you find an entrance to a Cow base, all Gophers being held captive there will be rescued.
+If you find a part of a Cow base that they can't enter, it will be marked on your map as part of a base.`)
 	wait()
-	fmt.Println("After your turn, the evil Cows will try to invade your burrows.")
-	fmt.Println("They can only invade a burrow if they find an entrance.")
-	fmt.Println("You will be notified by your guards when a Cow squad is near a burrow.")
+	fmt.Println(
+		`After your turn, the evil Cows will try to invade your burrows.
+They can only invade a burrow if they find an entrance.
+You will be notified by your guards when a Cow squad is near a burrow.`)
 	wait()
-	fmt.Println("That's how the game works.")
-	fmt.Println("Press enter to start the game.")
+	fmt.Println(
+		`That's how the game works.
+Press enter to start the game.`)
 	time.Sleep(PAUSE)
 }
 
