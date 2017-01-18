@@ -34,7 +34,7 @@ func init() {
 }
 
 func main() {
-	print("THIS IS THE GAME LOOP")
+	fmt.Println("THIS IS THE GAME LOOP")
 }
 
 func input(prompt string) (response string) {
