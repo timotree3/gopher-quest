@@ -24,18 +24,82 @@ import (
 )
 
 const (
-	PAUSE time.Duration = time.Second / 2
+	PAUSE      time.Duration = time.Second / 2
+	GRIDSIZE   int           = 12   // the width and height of both territory grids
+	UNFOUND    rune          = ' '  // for spots not checked yet
+	EMPTY      rune          = '\'' // not part of a base/burrow
+	HORIZONTAL rune          = '-'  // part of a base/burrow going side-to-side
+	VERTICAL   rune          = '|'  // part of a base/burrow going up and down
+	TOP        rune          = '^'  // an entrance at the top of a base/burrow
+	BOTTOM     rune          = 'v'  // an entrance at the bottom of a base/burrow
+	RIGHT      rune          = '>'  // an entrance at the right end of a base/burrow
+	LEFT       rune          = '<'  // an entrance at the left end of a base/burrow
+	YAXIS      bool          = false
+	XAXIS      bool          = true
 )
 
+type cell struct {
+	found    bool // whether it should be rendered
+	rendered rune // one of (O, -, |, ^, v, >, <)
+}
+
+type grid [GRIDSIZE][GRIDSIZE]cell
+
+// the territory grids
+var gopherland grid
+var cowlair grid
+
 func init() {
+	for y := 0; y < GRIDSIZE; y++ {
+		for x := 0; x < GRIDSIZE; x++ {
+			gopherland[y][x] = cell{true, EMPTY} // should be {false, EMPTY} may be true for testing purposes
+			cowlair[y][x] = cell{true, EMPTY}    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		}
+
+	}
 	fmt.Println(
 		`Welcome to Gopher Quest!
 If you don't know how to play, type 'info' now; otherwise, press enter.`)
-	input("")
+	input("") // 'info' can be typed at any time.
 }
 
 func main() {
-	fmt.Println("THIS IS THE GAME LOOP")
+	// for testing features until I implement game flow
+	gopherland.make_base(0, 0, YAXIS, GRIDSIZE)
+	cowlair.make_base(GRIDSIZE-12, GRIDSIZE-12, YAXIS, 12)
+	gopherland.print()
+	fmt.Println("~~~~~~~~~~~~~~~~~~~~")
+	cowlair.print()
+}
+
+func (plot *grid) make_base(y_start int, x_start int, axis bool, distance int) (err error) {
+	if axis == YAXIS { // if this is a vertical base
+		plot[y_start][x_start].rendered = TOP
+		for y := y_start + 1; y < y_start+distance-1; y++ {
+			plot[y][x_start].rendered = VERTICAL
+		}
+		plot[y_start+distance-1][x_start].rendered = BOTTOM
+	} else { // if this is a horizontal base
+		plot[y_start][x_start].rendered = LEFT
+		for x := x_start + 1; x < x_start+distance-1; x++ {
+			plot[y_start][x].rendered = HORIZONTAL
+		}
+		plot[y_start][x_start+distance-1].rendered = RIGHT
+	}
+	return nil
+}
+
+func (plot grid) print() {
+	for _, row := range plot {
+		for _, spot := range row {
+			if spot.found { // if the player should be able to see the spot
+				fmt.Print(string(spot.rendered)) // print the spot's real value
+			} else {
+				fmt.Print(string(UNFOUND)) // print a blank spot
+			}
+		}
+		fmt.Println() // make a new line for each row
+	}
 }
 
 func input(prompt string) (response string) {
