@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/timotree3/gopher-quest.png?label=ready&title=Ready)](https://waffle.io/timotree3/gopher-quest)
 <!---
 Copyright (C) 2017 (timotree3, et al.)
 
